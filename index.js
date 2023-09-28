@@ -1,44 +1,20 @@
+// index.js
+const express = require('express')
 
+const app = express()
+const PORT = 4000
 
-import cors from "cors";
-import  express from "express";
-
-
-import RSSParser from "rss-parser";
-
-const feedURL = "https://sujanadk.substack.com/feed";
-
-
-const parser = new RSSParser();
-
-let articles = [];
-
-const parse =async url =>{
-
-const feed  = await parser.parseURL(url);
-
-
-
-
-feed.items.forEach(item =>{
-
-   articles.push({item})
-    
+app.listen(PORT, () => {
+  console.log(`API listening on PORT ${PORT} `)
 })
 
-}
-
-parse(feedURL);
-let app = express();
-app.use(cors());
-app.get('/', (req, res)=>{
-
-    res.send(articles);
+app.get('/', (req, res) => {
+  res.send('Hey this is my API running 🥳')
 })
 
-const server = app.listen("4000",()=>{
-
-    console.log("App is listening at 4000 port");
+app.get('/about', (req, res) => {
+  res.send('This is my about route..... ')
 })
 
-export default server;
+// Export the Express API
+module.exports = app
